@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ModalComponent } from '../../core/components/modal.component';
 import { DialogService } from "ng2-bootstrap-modal";
+import { AuthService } from '../../core/services/auth.service';
 
 import * as _ from "lodash";
 
@@ -12,6 +13,10 @@ import * as _ from "lodash";
 })
 export class QuizComponent {
   quizFields = {
+    fields: []
+  }
+
+  quizData = {
     fields: [
       {
         className: 'col-md-6',
@@ -100,13 +105,15 @@ export class QuizComponent {
     ]
   };
 
-  constructor(private dialogService:DialogService) {}
+  constructor(
+    private dialogService:DialogService,
+    private auth: AuthService,
+  ) {}
 
   answers = [];
   form;
 
-  ngOnInit() {
-    this.form = new FormGroup({});
+  loadQuiz() {
     this.quizFields.fields.forEach((element, index) => {
       // Create unique name for Form Element
       const repeatValue = Math.floor((index + 1) / 26);
@@ -127,12 +134,24 @@ export class QuizComponent {
           question: {
             id: element.question.id,
           },
-          answer: {
-            // id: null,
-            // result: null,
-          },
+          answer: {},
         }
       )
+    });
+  }
+
+  ngOnInit() {
+    this.form = new FormGroup({});
+    this.auth.get('quiz')
+    .then((data) => {
+      if (data.json().status === 'success') {
+        this.quizFields = data.json().data;
+        this.loadQuiz()
+      }
+    })
+    .catch((err) => {
+      this.quizFields = this.quizData;
+      this.loadQuiz()
     });
   }
 
@@ -142,10 +161,10 @@ export class QuizComponent {
 
   showModal() {
     let disposable = this.dialogService.addDialog(ModalComponent, {
-        title:'quiz.modal.title',
-        message:'quiz.modal.body',
-        okButton: true,
-        cancelButton: true,
-      })
+      title:'quiz.modal.title',
+      message:'quiz.modal.body',
+      okButton: true,
+      cancelButton: true,
+    })
   }
 }
