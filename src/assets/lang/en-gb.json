@@ -1,0 +1,43 @@
+{
+    "core": {
+        "status": {
+            "title": "User Status",
+            "loggedIn": "Logged in?"
+        },
+
+        "login": {
+            "title": "Login",
+            "email": "Email",
+            "password": "Password",
+            "submitButton": "Submit"
+        },
+
+        "logout": {
+            "message": "Logged out!"
+        },
+
+        "register": {
+            "title": "Register",
+            "email": "Email",
+            "password": "Password",
+            "submitButton": "Submit"
+        }
+    },
+
+    "mainMenu": {
+        "siteName": "Site",
+        "mainNav": {
+            "home": "Home",
+            "quiz": "Quiz",
+            "admin": "Admin"
+        },
+        "sideNav": {
+            "login": "Login",
+            "logout": "Logout"
+        }
+    },
+
+    "quiz": {
+        "question": "Question {{ question }}"
+    }
+}
