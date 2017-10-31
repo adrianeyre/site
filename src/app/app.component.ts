@@ -1,10 +1,30 @@
 import { Component } from '@angular/core';
+import { StateChange } from './core/services/stateChange.service';
+import { Config } from './core/config/config';
+import { TranslateService } from '@ngx-translate/core';
+
+// import { Validators, FormGroup } from '@angular/forms';
+// import { FormlyFieldConfig } from 'ng-formly';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./core/styles/core.component.less']
 })
+
+
 export class AppComponent {
-  title = 'app';
+  constructor(
+    private stateChange: StateChange,
+    private config: Config,
+    private translate: TranslateService
+  ) {
+    translate.setDefaultLang('en-gb');
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
+
 }
