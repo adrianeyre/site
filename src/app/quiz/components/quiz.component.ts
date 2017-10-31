@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { ModalComponent } from '../../core/components/modal.component';
+import { DialogService } from "ng2-bootstrap-modal";
 
 import * as _ from "lodash";
 
@@ -98,6 +100,8 @@ export class QuizComponent {
     ]
   };
 
+  constructor(private dialogService:DialogService) {}
+
   answers = [];
   form;
 
@@ -124,8 +128,8 @@ export class QuizComponent {
             id: element.question.id,
           },
           answer: {
-            id: null,
-            text: null,
+            // id: null,
+            // result: null,
           },
         }
       )
@@ -134,5 +138,14 @@ export class QuizComponent {
 
   submit(answers) {
     console.log(answers);
+  }
+
+  showModal() {
+    let disposable = this.dialogService.addDialog(ModalComponent, {
+        title:'quiz.modal.title',
+        message:'quiz.modal.body',
+        okButton: true,
+        cancelButton: true,
+      })
   }
 }

@@ -3,10 +3,6 @@ import { StateChange } from './core/services/stateChange.service';
 import { Config } from './core/config/config';
 import { TranslateService } from '@ngx-translate/core';
 
-// import { Validators, FormGroup } from '@angular/forms';
-// import { FormlyFieldConfig } from 'ng-formly';
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

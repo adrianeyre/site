@@ -38,6 +38,15 @@
     },
 
     "quiz": {
-        "question": "Question {{ question }}"
+        "question": "Question {{ question }}",
+        "modal": {
+            "title": "This is a test",
+            "body": "This is some text in the modal"
+        }
+    },
+
+    "modal": {
+        "okButton": "OK",
+        "cancelButton": "Cancel"
     }
 }
