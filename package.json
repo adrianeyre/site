@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,18 +12,31 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.2.4",
+    "@angular/animations": "^4.4.4",
+    "@angular/cdk": "^2.0.0-beta.11",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
     "@angular/core": "^4.2.4",
     "@angular/forms": "^4.2.4",
     "@angular/http": "^4.2.4",
+    "@angular/material": "^2.0.0-beta.11",
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@ngx-translate/core": "^8.0.0",
+    "@ngx-translate/http-loader": "^2.0.0",
+    "@types/lodash": "^4.14.77",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "express": "^4.16.2",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.2.1",
+    "less": "^2.7.2",
+    "lodash": "^4.17.4",
     "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "@angular/cli": "1.4.4",
+    "@angular/compiler-cli": "^4.2.4"
   },
   "devDependencies": {
     "@angular/cli": "1.4.4",
@@ -45,5 +58,9 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.3.3"
+  },
+  "engines": {
+    "node": "6.11.1",
+    "npm": "3.10.9"
   }
 }
