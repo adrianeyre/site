@@ -7,6 +7,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { CommonModule } from '@angular/common';
+import { ModalComponent } from './core/components/modal.component';
+
 import { LoginComponent } from './core/components/login.component';
 import { RegisterComponent } from './core/components/register.component';
 import { StatusComponent } from './core/components/status.component';
@@ -36,8 +40,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     LogoutComponent,
     MainMenuComponent,
     QuizComponent,
+    ModalComponent,
   ],
   imports: [
+    CommonModule,
+    // BootstrapModalModule,
+    BootstrapModalModule.forRoot({container:document.body}),
     BrowserModule,
     HttpModule,
     FormsModule,
@@ -84,6 +92,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     StateChange,
     Config,
     Menu,
+  ],
+  entryComponents: [
+    ModalComponent
   ],
   bootstrap: [
     AppComponent,

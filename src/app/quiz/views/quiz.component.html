@@ -17,7 +17,7 @@
                   formControlName="{{ item.id }}"
                   style="width:100%"
                   placeholder="{{ item.options.placeholder }}"
-                  [(ngModel)]="answers[question].answer.text"
+                  [(ngModel)]="answers[question].answer.result"
                 >
               </div>
 
@@ -28,7 +28,7 @@
                   formControlName="{{ item.id }}"
                   style="width:100%"
                   placeholder="{{ item.options.placeholder }}"
-                  [(ngModel)]="answers[question].answer.text"
+                  [(ngModel)]="answers[question].answer.result"
                 >
               </div>
 
@@ -69,7 +69,7 @@
                 name="{{ item.id }}"
                 style="width:100%"
                 formControlName="{{ item.id }}"
-                [(ngModel)]="answers[question].answer.text"
+                [(ngModel)]="answers[question].answer.result"
               >
               </textarea>
             </p>
@@ -84,4 +84,8 @@
     </div>
   </form>
   {{ answers | json }}
+
+  <div class="col-md-12 text-center">
+    <button class="btn btn-default" (click)=showModal()>Test the modal</button>
+  </div>
 </div>
