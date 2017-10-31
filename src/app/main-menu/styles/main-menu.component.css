@@ -1591,9 +1591,25 @@ pre code {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+.menu-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0px;
+  padding-right: 5px;
+  background-color: #375A7F;
+  width: 250px;
+}
+@media (max-width: 768px) {
   .container {
     width: 750px;
+  }
+  .menu-container {
+    margin-right: 0px;
+    margin-left: -20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: #28415B;
+    width: calc(100% + 30px);
   }
 }
 @media (min-width: 992px) {

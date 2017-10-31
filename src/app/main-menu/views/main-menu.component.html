@@ -17,7 +17,7 @@
           <ul class="dropdown-menu" role="menu">
             <li *ngFor="let item of menu.menuList">
               <a href="{{ item.href }}">
-                <div class="container">
+                <div class="menu-container">
                   <img src="/assets/icons/{{ item.icon }}" height="50" width="50"> <span translate="mainMenu.mainNav.{{ item.key }}"></span>
                 </div>
               </a>
@@ -25,7 +25,7 @@
             <li class="divider"></li>
             <li>
               <a href="/logout">
-                <div class="container">
+                <div class="menu-container">
                   <img src="/assets/icons/logout.png" height="50" width="50"> <span translate="mainMenu.sideNav.logout"></span>
                 </div>
               </a>
