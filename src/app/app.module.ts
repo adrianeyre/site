@@ -17,6 +17,7 @@ import { StatusComponent } from './core/components/status.component';
 import { LogoutComponent } from './core/components/logout.component';
 import { MainMenuComponent } from './main-menu/components/main-menu.component';
 import { QuizComponent } from './quiz/components/quiz.component';
+import { QuestionsComponent } from './questions/components/questions.component';
 import { AppComponent } from './app.component';
 
 import { AuthService } from './core/services/auth.service';
@@ -41,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MainMenuComponent,
     QuizComponent,
     ModalComponent,
+    QuestionsComponent,
   ],
   imports: [
     CommonModule,

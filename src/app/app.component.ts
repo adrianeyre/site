@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./core/styles/core.component.less']
 })
 
-
 export class AppComponent {
   constructor(
     private stateChange: StateChange,

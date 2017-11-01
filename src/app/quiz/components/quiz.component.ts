@@ -106,56 +106,27 @@ export class QuizComponent {
   };
 
   constructor(
-    private dialogService:DialogService,
+    private dialogService: DialogService,
     private auth: AuthService,
   ) {}
 
-  answers = [];
-  form;
-
-  loadQuiz() {
-    this.quizFields.fields.forEach((element, index) => {
-      // Create unique name for Form Element
-      const repeatValue = Math.floor((index + 1) / 26);
-      const leftValue = (index + 1) % 26;
-      const questionID = 'a'.repeat(repeatValue) + String.fromCharCode(97 + leftValue);
-
-      this.form.controls[questionID] = new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.min(_.get(element, 'options.min', null)),
-        Validators.max(_.get(element, 'options.max', null)),
-        Validators.minLength(_.get(element, 'options.minLength', null)),
-        Validators.maxLength(_.get(element, 'options.maxLength', null)),
-        Validators.pattern(_.get(element, 'options.pattern', null)),
-      ]));
-      _.set(element, 'id', questionID);
-      this.answers.push(
-        {
-          question: {
-            id: element.question.id,
-          },
-          answer: {},
-        }
-      )
-    });
-  }
-
   ngOnInit() {
-    this.form = new FormGroup({});
-    this.auth.get('quiz')
-    .then((data) => {
-      if (data.json().status === 'success') {
-        this.quizFields = data.json().data;
-        this.loadQuiz()
-      }
-    })
-    .catch((err) => {
-      this.quizFields = this.quizData;
-      this.loadQuiz()
-    });
+    // this.form = new FormGroup({});
+    // this.auth.get('quiz')
+    // .then((data) => {
+    //   if (data.json().status === 'success') {
+    //     this.quizFields = data.json().data;
+    //     // this.loadQuiz()
+    //   }
+    // })
+    // .catch((err) => {
+    //   this.quizFields = this.quizData;
+    //   // this.loadQuiz()
+    // });
+    this.quizFields = this.quizData;
   }
 
-  submit(answers) {
+  onSubmit(answers) {
     console.log(answers);
   }
 

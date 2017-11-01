@@ -1,0 +1,86 @@
+<div class="question-page">
+  <form class="question-form" (ngSubmit)="submit(answers)" name="quizForm" [formGroup]="form">
+    <div *ngFor="let item of dataFields.fields; let question = index">
+      <div class="{{ item.className }}">
+
+        <div class="question-box">
+          <div class="side" [ngClass]="form.controls[item.id].valid || answers[question].answer.id ? 'answer' : 'no-answer'">{{ question + 1 }}</div>          
+          <div class="main">
+            <div [innerHtml]='item.question.text'></div>
+
+            <div class="input-area">
+              <div *ngIf="item.type === 'text'">
+                <input
+                  type="text"
+                  name="{{ item.id }}"
+                  formControlName="{{ item.id }}"
+                  style="width:100%"
+                  placeholder="{{ item.options.placeholder }}"
+                  [(ngModel)]="answers[question].answer.result"
+                >
+              </div>
+
+              <div *ngIf="item.type === 'number'">
+                <input
+                  type="number"
+                  name="{{ item.id }}"
+                  formControlName="{{ item.id }}"
+                  style="width:100%"
+                  placeholder="{{ item.options.placeholder }}"
+                  [(ngModel)]="answers[question].answer.result"
+                >
+              </div>
+
+              <div *ngIf="item.type === 'radio'">
+                <div *ngFor="let answer of item.answers">
+                  <input
+                    type="radio"
+                    name="{{ item.id }}"
+                    value="{{ answer.id }}"
+                    formControlName="{{ item.id }}"
+                    [(ngModel)]="answers[question].answer.id"
+                  >
+                  {{ answer.text }}
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="item.type === 'checkbox'">
+              <fieldset>
+                <div *ngFor="let answer of item.answers; let i = index">
+                  <input
+                    type="checkbox"
+                    name="{{ item.id }}"
+                    value="{{ answer.id }}"
+                    formControlName="{{ item.id }}"
+                    required
+                    [(ngModel)]="answers[question].answer[answer.id]"
+                  >
+                  {{ answer.text }}
+                </div>
+              </fieldset>
+            </div>
+
+            <p *ngIf="item.type === 'textarea'">
+              <textarea
+                rows="{{ item.options.rows }}"
+                cols="{{ item.options.cols }}"
+                name="{{ item.id }}"
+                style="width:100%"
+                formControlName="{{ item.id }}"
+                [(ngModel)]="answers[question].answer.result"
+              >
+              </textarea>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer col-md-12 text-center">
+      <input type="submit" class="btn btn-default">
+    </div>
+  </form>
+  {{ answers | json }}
+</div>
