@@ -6,6 +6,8 @@ import { Config } from '../../core/config/config';
 import { FormModalComponent } from '../../core/components/form.modal.component';
 import { DialogService } from "ng2-bootstrap-modal";
 
+import * as _ from "lodash";
+
 @Component({
   selector: 'login',
   templateUrl: '../views/login.component.html',
@@ -14,21 +16,6 @@ import { DialogService } from "ng2-bootstrap-modal";
 
 export class LoginComponent {
   user: User = new User();
-
-  quizData = {
-    fields: [
-      {
-        className: 'col-md-6',
-        type: 'text',
-        question: {
-          id: 1,
-          text: 'Email',
-        },
-        options: {
-        },
-      },
-    ],
-  }
 
   constructor(
     private router: Router,
@@ -40,22 +27,25 @@ export class LoginComponent {
   ngAfterContentInit() {
     setTimeout(()=>{
       let disposable = this.dialogService.addDialog(FormModalComponent, {
-        title:'core.login.title',
-        message:'quiz.modal.body',
-        okButton: true,
-        cancelButton: true,
+        title: 'core.login.title',
+        okButton: false,
+        cancelButton: false,
+        form: 'login',
       })
-    });
-  }
-
-  onLogin(): void {
-    this.auth.login(this.user)
-    .then((user) => {
-      localStorage.setItem('token', user.json().auth_token);
-      this.router.navigateByUrl('/status');
-    })
-    .catch((err) => {
-      console.log(err);
+      .subscribe((result)=>{
+        if(result) {
+          _.set(this.user, 'email', result[0].answer.result);
+          _.set(this.user, 'password', result[2].answer.result); 
+          this.auth.login(this.user)
+          .then((user) => {
+            localStorage.setItem('token', user.json().auth_token);
+            this.router.navigateByUrl('/status');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+      });
     });
   }
 

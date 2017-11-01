@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { Forms } from '../../core/config/forms';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 
 export interface FormModalComponent {
   title: string;
-  message: string;
   okButton: boolean;
   cancelButton: boolean;
+  form: string;
 }
 
 @Component({  
@@ -16,18 +17,25 @@ export interface FormModalComponent {
 
 export class FormModalComponent extends DialogComponent<FormModalComponent, boolean> implements FormModalComponent {
   title: string;
-  message: string;
   okButton: boolean;
   cancelButton: boolean;
+  form: string;
+  formData = {};
 
   constructor(
-    dialogService: DialogService
+    dialogService: DialogService,
+    private forms: Forms,
   ) {
     super(dialogService);
   }
 
-  confirm() {
-    this.result = true;
+  ngOnInit() {
+    this.formData = this.forms[this.form];
+  }
+
+  onSubmit(answers) {
+    this.result = answers;
     this.close();
   }
+
 }

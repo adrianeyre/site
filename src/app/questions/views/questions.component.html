@@ -1,12 +1,12 @@
 <div class="question-page">
-  <form class="question-form" (ngSubmit)="submit(answers)" name="quizForm" [formGroup]="form">
+  <form class="question-form" (ngSubmit)="submit(answers)" name="mainForm" [formGroup]="form">
     <div *ngFor="let item of dataFields.fields; let question = index">
       <div class="{{ item.className }}">
 
         <div class="question-box">
-          <div class="side" [ngClass]="form.controls[item.id].valid || answers[question].answer.id ? 'answer' : 'no-answer'">{{ question + 1 }}</div>          
+          <div class="side" [ngClass]="form.controls[item.id].valid || answers[question].answer.id ? 'answer' : 'no-answer'">{{ question + 1 }}</div>
           <div class="main">
-            <div [innerHtml]='item.question.text'></div>
+            <div [innerHtml]='item.question.text | translate'></div>
 
             <div class="input-area">
               <div *ngIf="item.type === 'text'">
@@ -23,6 +23,28 @@
               <div *ngIf="item.type === 'number'">
                 <input
                   type="number"
+                  name="{{ item.id }}"
+                  formControlName="{{ item.id }}"
+                  style="width:100%"
+                  placeholder="{{ item.options.placeholder }}"
+                  [(ngModel)]="answers[question].answer.result"
+                >
+              </div>
+
+              <div *ngIf="item.type === 'email'">
+                <input
+                  type="email"
+                  name="{{ item.id }}"
+                  formControlName="{{ item.id }}"
+                  style="width:100%"
+                  placeholder="{{ item.options.placeholder }}"
+                  [(ngModel)]="answers[question].answer.result"
+                >
+              </div>
+
+              <div *ngIf="item.type === 'password'">
+                <input
+                  type="password"
                   name="{{ item.id }}"
                   formControlName="{{ item.id }}"
                   style="width:100%"
@@ -82,5 +104,4 @@
       <input type="submit" class="btn btn-default">
     </div>
   </form>
-  {{ answers | json }}
 </div>

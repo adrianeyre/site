@@ -26,6 +26,7 @@ import { LoginRedirect } from './core/services/login-redirect.service';
 import { StateChange } from './core/services/stateChange.service';
 
 import { Config } from './core/config/config';
+import { Forms } from './core/config/forms';
 import { Menu } from './core/config/menu';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -93,6 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginRedirect,
     StateChange,
     Config,
+    Forms,
     Menu,
   ],
   entryComponents: [

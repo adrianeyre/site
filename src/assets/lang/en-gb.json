@@ -6,8 +6,9 @@
         },
 
         "login": {
-            "title": "Login",
+            "title": "Please log into the system",
             "email": "Email",
+            "domain": "Domain",
             "password": "Password",
             "submitButton": "Submit"
         },
