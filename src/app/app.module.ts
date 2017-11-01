@@ -6,11 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { CommonModule } from '@angular/common';
-import { ModalComponent } from './core/components/modal.component';
 
+import { ModalComponent } from './core/components/modal.component';
+import { FormModalComponent } from './core/components/form.modal.component';
 import { LoginComponent } from './core/components/login.component';
 import { RegisterComponent } from './core/components/register.component';
 import { StatusComponent } from './core/components/status.component';
@@ -42,11 +42,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     MainMenuComponent,
     QuizComponent,
     ModalComponent,
+    FormModalComponent,
     QuestionsComponent,
   ],
   imports: [
     CommonModule,
-    // BootstrapModalModule,
     BootstrapModalModule.forRoot({container:document.body}),
     BrowserModule,
     HttpModule,
@@ -96,7 +96,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     Menu,
   ],
   entryComponents: [
-    ModalComponent
+    ModalComponent,
+    FormModalComponent
   ],
   bootstrap: [
     AppComponent,
