@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user';
 import { Config } from '../../core/config/config';
+import { FormModalComponent } from '../../core/components/form.modal.component';
+import { DialogService } from "ng2-bootstrap-modal";
 
 @Component({
   selector: 'login',
@@ -13,11 +15,38 @@ import { Config } from '../../core/config/config';
 export class LoginComponent {
   user: User = new User();
 
+  quizData = {
+    fields: [
+      {
+        className: 'col-md-6',
+        type: 'text',
+        question: {
+          id: 1,
+          text: 'Email',
+        },
+        options: {
+        },
+      },
+    ],
+  }
+
   constructor(
     private router: Router,
     private auth: AuthService,
-    private config: Config
+    private config: Config,
+    private dialogService: DialogService,
   ) {}
+
+  ngAfterContentInit() {
+    setTimeout(()=>{
+      let disposable = this.dialogService.addDialog(FormModalComponent, {
+        title:'core.login.title',
+        message:'quiz.modal.body',
+        okButton: true,
+        cancelButton: true,
+      })
+    });
+  }
 
   onLogin(): void {
     this.auth.login(this.user)

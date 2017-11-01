@@ -106,7 +106,7 @@ export class QuizComponent {
   };
 
   constructor(
-    private dialogService:DialogService,
+    private dialogService: DialogService,
     private auth: AuthService,
   ) {}
 
