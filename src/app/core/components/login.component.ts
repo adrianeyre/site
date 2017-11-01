@@ -10,7 +10,7 @@ import * as _ from "lodash";
 
 @Component({
   selector: 'login',
-  templateUrl: '../views/login.component.html',
+  template: '',
   styleUrls: ['../styles/core.component.less']
 })
 
@@ -23,6 +23,10 @@ export class LoginComponent {
     private config: Config,
     private dialogService: DialogService,
   ) {}
+
+  isActive(){
+    return true;
+  }
 
   ngAfterContentInit() {
     setTimeout(()=>{

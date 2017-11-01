@@ -18,6 +18,7 @@ import { LogoutComponent } from './core/components/logout.component';
 import { MainMenuComponent } from './main-menu/components/main-menu.component';
 import { QuizComponent } from './quiz/components/quiz.component';
 import { QuestionsComponent } from './questions/components/questions.component';
+import { HomeComponent } from './core/components/home.component';
 import { AppComponent } from './app.component';
 
 import { AuthService } from './core/services/auth.service';
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalComponent,
     FormModalComponent,
     QuestionsComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +65,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     RouterModule.forRoot([
+      {
+        path: '',
+        component: HomeComponent,
+      },
       {
         path: 'quiz',
         component: QuizComponent,
@@ -99,7 +105,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     ModalComponent,
-    FormModalComponent
+    FormModalComponent,
+    LogoutComponent
   ],
   bootstrap: [
     AppComponent,
