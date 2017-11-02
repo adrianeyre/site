@@ -46,7 +46,7 @@ export class QuestionsComponent implements OnInit {
           answer: {},
         }
       )
-    });
+    })
   }
 
   submit(answers) {

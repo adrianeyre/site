@@ -42,4 +42,14 @@ export class AuthService {
     return this.http.get(url, {headers: headers}).toPromise();
   }
 
+  post(route: string, data: any): Promise<any> {
+    const token = localStorage.getItem('token');
+    const url: string = `${ this.BASE_URL }/${ route }`;
+    const headers: Headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${ token }`
+    });
+    return this.http.post(url, data, {headers: this.headers}).toPromise();
+  }
+
 }

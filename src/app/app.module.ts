@@ -8,6 +8,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { CommonModule } from '@angular/common';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { ModalComponent } from './core/components/modal.component';
 import { FormModalComponent } from './core/components/form.modal.component';
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     CommonModule,
+    Ng4LoadingSpinnerModule,
     BootstrapModalModule.forRoot({container:document.body}),
     BrowserModule,
     HttpModule,
