@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(
     private stateChange: StateChange,
     private config: Config,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate.setDefaultLang('en-gb');
   }

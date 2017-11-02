@@ -1,5 +1,7 @@
-<questions [dataFields]="quizFields" (update)="onSubmit($event)"></questions>
+<div *ngIf="loaded">
+    <questions [dataFields]="quizFields" (update)="onSubmit($event)"></questions>
 
-<div class="col-md-12 text-center">
-    <button class="btn btn-default" (click)=showModal()>Test the modal</button>
+    <div class="col-md-12 text-center">
+        <button class="btn btn-default" (click)=showModal()>Test the modal</button>
+    </div>
 </div>

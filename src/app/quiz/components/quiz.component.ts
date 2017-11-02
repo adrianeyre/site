@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ModalComponent } from '../../core/components/modal.component';
 import { DialogService } from "ng2-bootstrap-modal";
 import { AuthService } from '../../core/services/auth.service';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 import * as _ from "lodash";
 
@@ -12,6 +13,8 @@ import * as _ from "lodash";
   styleUrls: ['../styles/quiz.component.less'],
 })
 export class QuizComponent {
+
+  loaded = false
   quizFields = {
     fields: []
   }
@@ -108,22 +111,24 @@ export class QuizComponent {
   constructor(
     private dialogService: DialogService,
     private auth: AuthService,
+    private spinnerService: Ng4LoadingSpinnerService,
   ) {}
 
   ngOnInit() {
-    // this.form = new FormGroup({});
-    // this.auth.get('quiz')
-    // .then((data) => {
-    //   if (data.json().status === 'success') {
-    //     this.quizFields = data.json().data;
-    //     // this.loadQuiz()
-    //   }
-    // })
-    // .catch((err) => {
-    //   this.quizFields = this.quizData;
-    //   // this.loadQuiz()
-    // });
-    this.quizFields = this.quizData;
+    this.spinnerService.show();
+    this.auth.get('quiz')
+    .then((data) => {
+      if (data.json().status === 'success') {
+        this.quizFields = data.json().data;
+        this.loaded = true;
+        this.spinnerService.hide();
+      }
+    })
+    .catch((err) => {
+      this.quizFields = this.quizData;
+      this.loaded = true;
+      this.spinnerService.hide();
+    });
   }
 
   onSubmit(answers) {
