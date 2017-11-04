@@ -1,106 +1,111 @@
 <div class="question-page">
-  <form class="question-form" (ngSubmit)="submit(answers)" name="mainForm" [formGroup]="form">
+  <form class="question-form" (ngSubmit)="submit(form)" name="mainForm" [formGroup]="form">
     <div *ngFor="let item of dataFields.fields; let question = index">
       <div class="{{ item.className }}">
 
         <div class="question-box">
-          <div class="side" [ngClass]="form.controls[item.id].valid || answers[question].answer.id ? 'answer' : 'no-answer'">{{ question + 1 }}</div>
+          <div *ngIf="!resultsPage" class="side" [ngClass]="((form.controls[item.key].valid) && (form.controls[item.key].dirty || form.controls[item.key].touched)) ? 'answer' : 'no-answer'">{{ question + 1 }}</div>
+          <div *ngIf="resultsPage" class="side" [ngClass]="resultValidation(item, form) ? 'correct-answer' : 'wrong-answer'">{{ question + 1 }}</div>                    
           <div class="main">
-            <div [innerHtml]='item.question.text | translate'></div>
+            <div class="question-container" [innerHtml]='item.question.text | translate'></div>
 
-            <div class="input-area">
-              <div *ngIf="item.type === 'text'">
-                <input
-                  type="text"
-                  name="{{ item.id }}"
-                  formControlName="{{ item.id }}"
-                  style="width:100%"
-                  placeholder="{{ item.options.placeholder }}"
-                  [(ngModel)]="answers[question].answer.result"
-                >
-              </div>
-
-              <div *ngIf="item.type === 'number'">
-                <input
-                  type="number"
-                  name="{{ item.id }}"
-                  formControlName="{{ item.id }}"
-                  style="width:100%"
-                  placeholder="{{ item.options.placeholder }}"
-                  [(ngModel)]="answers[question].answer.result"
-                >
-              </div>
-
-              <div *ngIf="item.type === 'email'">
-                <input
-                  type="email"
-                  name="{{ item.id }}"
-                  formControlName="{{ item.id }}"
-                  style="width:100%"
-                  placeholder="{{ item.options.placeholder }}"
-                  [(ngModel)]="answers[question].answer.result"
-                >
-              </div>
-
-              <div *ngIf="item.type === 'password'">
-                <input
-                  type="password"
-                  name="{{ item.id }}"
-                  formControlName="{{ item.id }}"
-                  style="width:100%"
-                  placeholder="{{ item.options.placeholder }}"
-                  [(ngModel)]="answers[question].answer.result"
-                >
-              </div>
-
-              <div *ngIf="item.type === 'radio'">
-                <div *ngFor="let answer of item.answers">
+            <div *ngFor="let element of elements" [ngClass]="elements.length > 1 ? 'col-md-6' : ''">
+              <div *ngIf="element === 'result'">Correct Answer</div>
+              <div *ngIf="element === 'answer'">Your Answer</div>
+              <div class="input-area">
+                <div *ngIf="item.type === 'text'">
                   <input
-                    type="radio"
-                    name="{{ item.id }}"
-                    value="{{ answer.id }}"
-                    formControlName="{{ item.id }}"
-                    [(ngModel)]="answers[question].answer.id"
+                    type="text"
+                    name="{{ selectElement(element, item) }}"
+                    id="{{ selectElement(element, item) }}"
+                    formControlName="{{ selectElement(element, item) }}"
+                    style="width:100%"
+                    placeholder="{{ item.options.placeholder }}"
                   >
-                  {{ answer.text }}
+                </div>
+
+                <div *ngIf="item.type === 'number'">
+                  <input
+                    type="number"
+                    name="{{ selectElement(element, item) }}"
+                    id="{{ selectElement(element, item) }}"
+                    formControlName="{{ selectElement(element, item) }}"
+                    style="width:100%"
+                    placeholder="{{ item.options.placeholder }}"
+                  >
+                </div>
+
+                <div *ngIf="item.type === 'email'">
+                  <input
+                    type="email"
+                    name="{{ selectElement(element, item) }}"
+                    id="{{ selectElement(element, item) }}"
+                    formControlName="{{ selectElement(element, item) }}"
+                    style="width:100%"
+                    placeholder="{{ item.options.placeholder }}"
+                  >
+                </div>
+
+                <div *ngIf="item.type === 'password'">
+                  <input
+                    type="password"
+                    name="{{ selectElement(element, item) }}"
+                    id="{{ selectElement(element, item) }}"
+                    formControlName="{{ selectElement(element, item) }}"
+                    style="width:100%"
+                    placeholder="{{ item.options.placeholder }}"
+                  >
+                </div>
+
+                <div *ngIf="item.type === 'radio'">
+                  <div *ngFor="let answer of item.answers">
+                    <input
+                      type="radio"
+                      name="{{ selectElement(element, item) }}"
+                      id="{{ selectElement(element, item) }}"
+                      value="{{ answer.id }}"
+                      formControlName="{{ selectElement(element, item) }}"
+                    >
+                    {{ answer.text }}
+                  </div>
                 </div>
               </div>
+
+              <div *ngIf="item.type === 'checkbox'">
+                <fieldset [disabled]="resultsPage">
+                  <div *ngFor="let answer of item.answers; let i = index" [formGroupName]="selectElement(element, item)">
+                    <input
+                      type="checkbox"
+                      name="{{ answer.id }}"
+                      id="{{ answer.id }}"
+                      value="{{ answer.id }}"
+                      formControlName="{{ answer.id }}"
+                    >
+                    {{ answer.text }}
+                  </div>
+                </fieldset>
+              </div>
+
+              <p *ngIf="item.type === 'textarea'">
+                <textarea
+                  rows="{{ item.options.rows }}"
+                  cols="{{ item.options.cols }}"
+                  name="{{ selectElement(element, item) }}"
+                  id="{{ selectElement(element, item) }}"
+                  style="width:100%"
+                  placeholder="{{ item.options.placeholder }}"
+                  [readonly]="resultsPage"
+                  formControlName="{{ selectElement(element, item) }}"
+                >
+                </textarea>
+              </p>
             </div>
-
-            <div *ngIf="item.type === 'checkbox'">
-              <fieldset>
-                <div *ngFor="let answer of item.answers; let i = index">
-                  <input
-                    type="checkbox"
-                    name="{{ item.id }}"
-                    value="{{ answer.id }}"
-                    formControlName="{{ item.id }}"
-                    required
-                    [(ngModel)]="answers[question].answer[answer.id]"
-                  >
-                  {{ answer.text }}
-                </div>
-              </fieldset>
-            </div>
-
-            <p *ngIf="item.type === 'textarea'">
-              <textarea
-                rows="{{ item.options.rows }}"
-                cols="{{ item.options.cols }}"
-                name="{{ item.id }}"
-                style="width:100%"
-                formControlName="{{ item.id }}"
-                [(ngModel)]="answers[question].answer.result"
-              >
-              </textarea>
-            </p>
-
           </div>
         </div>
       </div>
     </div>
 
-    <div class="footer col-md-12 text-center">
+    <div *ngIf="!resultsPage" class="footer col-md-12 text-center">
       <input type="submit" class="btn btn-default">
     </div>
   </form>

@@ -34,7 +34,9 @@
         },
         "sideNav": {
             "login": "Login",
-            "logout": "Logout"
+            "logout": "Logout",
+            "quiz": "Quiz",
+            "results": "Results"
         }
     },
 

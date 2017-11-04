@@ -18,6 +18,7 @@ import { StatusComponent } from './core/components/status.component';
 import { LogoutComponent } from './core/components/logout.component';
 import { MainMenuComponent } from './main-menu/components/main-menu.component';
 import { QuizComponent } from './quiz/components/quiz.component';
+import { ResultsComponent } from './quiz/components/results.component';
 import { QuestionsComponent } from './questions/components/questions.component';
 import { HomeComponent } from './core/components/home.component';
 import { AppComponent } from './app.component';
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LogoutComponent,
     MainMenuComponent,
     QuizComponent,
+    ResultsComponent,
     ModalComponent,
     FormModalComponent,
     QuestionsComponent,
@@ -74,6 +76,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       {
         path: 'quiz',
         component: QuizComponent,
+      },
+      {
+        path: 'results',
+        component: ResultsComponent,
       },
       {
         path: 'login',

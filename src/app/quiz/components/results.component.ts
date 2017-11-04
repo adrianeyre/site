@@ -12,7 +12,7 @@ import * as _ from "lodash";
   templateUrl: '../views/quiz.component.html',
   styleUrls: ['../styles/quiz.component.less'],
 })
-export class QuizComponent {
+export class ResultsComponent {
 
   loaded = false
   quizFields = {
@@ -20,10 +20,11 @@ export class QuizComponent {
   }
 
   quizData = {
+    results: true,
     fields: [
       {
         key: 'question1',
-        className: 'col-md-6',
+        className: 'col-md-12',
         type: 'number',
         question: {
           id: 1,
@@ -33,10 +34,14 @@ export class QuizComponent {
           min: 1,
           max: 10,
         },
+        results: {
+          correct: 4,
+          answered: 4,
+        },
       },
       {
         key: 'question2',
-        className: 'col-md-6',
+        className: 'col-md-12',
         type: 'text',
         question: {
           id: 2,
@@ -47,10 +52,14 @@ export class QuizComponent {
           minLength: 5,
           maxLength: 10,
         },
+        results: {
+          correct: 'this',
+          answered: 'this',
+        },
       },
       {
         key: 'question3',
-        className: 'col-md-6',
+        className: 'col-md-12',
         type: 'radio',
         question: {
           id: 3,
@@ -73,10 +82,14 @@ export class QuizComponent {
         options: {
           maxLength: 30,
         },
+        results: {
+          correct: '1',
+          answered: '3',
+        },
       },
       {
         key: 'question4',
-        className: 'col-md-6',
+        className: 'col-md-12',
         type: 'checkbox',
         question: {
           id: 4,
@@ -96,6 +109,15 @@ export class QuizComponent {
             text: 'Option 6',
           },
         ],
+        results: {
+          correct: {
+            5: true,
+            6: true,
+          },
+          answered: {
+            6: true,
+          },
+        },
         options: {},
       },
       {
@@ -111,7 +133,11 @@ export class QuizComponent {
             cols: '50',
             minLength: 1,
             maxLength: 30,
-            placeholder: 'Enter some text'
+            placeholder: 'Enter email'
+        },
+        results: {
+          correct: 'test',
+          answered: 'test',
         },
       }
     ]
@@ -125,7 +151,7 @@ export class QuizComponent {
 
   ngOnInit() {
     this.spinnerService.show();
-    this.auth.get('quiz')
+    this.auth.get('results')
     .then((data) => {
       if (data.json().status === 'success') {
         this.quizFields = data.json().data;

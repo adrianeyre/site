@@ -35,6 +35,14 @@ export class Menu {
       }
     ],
     quiz: [
+      {
+        href: '/quiz',
+        key: 'quiz',
+      },
+      {
+        href: '/results',
+        key: 'results',
+      }
     ],
     admin: [
     ]
