@@ -106,6 +106,8 @@
                 </textarea>
               </p>
             </div>
+
+            <div class="explanation" *ngIf="resultsPage && item.results.explanation && item.minimize" [innerHtml]='item.results.explanation | translate'></div>
           </div>
         </div>
       </div>

@@ -37,6 +37,7 @@ export class ResultsComponent {
         results: {
           correct: 4,
           answered: 4,
+          explanation: 'This should equal 4 because I say so!',
         },
       },
       {
@@ -85,6 +86,7 @@ export class ResultsComponent {
         results: {
           correct: '1',
           answered: '3',
+          explanation: 'This should be Option 1 any other option is just silly!',
         },
       },
       {
