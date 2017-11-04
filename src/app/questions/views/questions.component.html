@@ -17,7 +17,7 @@
 
             <div *ngFor="let element of elements" [ngClass]="elements.length > 1 ? 'col-md-6' : ''">
               <div *ngIf="element === 'result'" translate="quiz.results.correct"></div>
-              <div *ngIf="element === 'answer' && resultPage" translate="quiz.results.answer"></div>
+              <div *ngIf="element === 'answer' && resultsPage" translate="quiz.results.answer"></div>
               <div class="input-area">
                 <div *ngIf="item.type === 'text'">
                   <input
