@@ -9,7 +9,7 @@ import * as _ from "lodash";
 
 @Component({
   selector: 'app',
-  templateUrl: '../views/quiz.component.html',
+  templateUrl: '../views/results.component.html',
   styleUrls: ['../styles/quiz.component.less'],
 })
 export class ResultsComponent {
@@ -53,8 +53,8 @@ export class ResultsComponent {
           maxLength: 10,
         },
         results: {
-          correct: 'this',
-          answered: 'this',
+          correct: 'abcdefg',
+          answered: 'abcdef',
         },
       },
       {
@@ -126,7 +126,7 @@ export class ResultsComponent {
         type: 'textarea',
         question: {
           id: 10,
-          text: 'This is question one with some HTML link in. Click here for <a href="http://www.bbc.co.uk">BBC</a>',
+          text: 'This is question one with some HTML link in. Click here for <a href="http://www.bbc.co.uk" target="_blank">BBC</a>',
         },
         options: {
             rows: '10',

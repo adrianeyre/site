@@ -15,6 +15,7 @@ import * as _ from "lodash";
 export class QuizComponent {
 
   loaded = false
+  answers = {};
   quizFields = {
     fields: []
   }
@@ -104,7 +105,7 @@ export class QuizComponent {
         type: 'textarea',
         question: {
           id: 10,
-          text: 'This is question one with some HTML link in. Click here for <a href="http://www.bbc.co.uk">BBC</a>',
+          text: 'This is question one with some HTML link in. Click here for <a href="http://www.bbc.co.uk" target="_blank">BBC</a>',
         },
         options: {
             rows: '10',
@@ -124,24 +125,39 @@ export class QuizComponent {
   ) {}
 
   ngOnInit() {
+    const dataSetup = data => {
+      this.quizFields = data;
+      _.forEach(this.quizFields.fields, element => {
+        this.answers[element.key] = {
+          question: {
+            id: element.question.id,
+          },
+          answer: {
+            id: null,
+          },
+        }
+      })
+
+      this.loaded = true;
+      this.spinnerService.hide();
+    }
+
     this.spinnerService.show();
     this.auth.get('quiz')
     .then((data) => {
       if (data.json().status === 'success') {
-        this.quizFields = data.json().data;
-        this.loaded = true;
-        this.spinnerService.hide();
+        dataSetup(data.json().data)
       }
     })
     .catch((err) => {
-      this.quizFields = this.quizData;
-      this.loaded = true;
-      this.spinnerService.hide();
+      dataSetup(this.quizData);
     });
   }
 
-  onSubmit(answers) {
-    console.log(answers);
+  onSubmit(form) {
+    _.forEach(form.controls, (element, id) => {
+      _.set(this.answers[id], 'answer.id', element.value);
+    })
   }
 
   showModal() {

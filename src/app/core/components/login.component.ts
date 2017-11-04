@@ -38,8 +38,8 @@ export class LoginComponent {
       })
       .subscribe((result)=>{
         if(result) {
-          _.set(this.user, 'email', result[0].answer.result);
-          _.set(this.user, 'password', result[2].answer.result); 
+          _.set(this.user, 'email', _.get(result, 'controls.email.value'));
+          _.set(this.user, 'password', _.get(result, 'controls.password.value'));
           this.auth.login(this.user)
           .then((user) => {
             localStorage.setItem('token', user.json().auth_token);

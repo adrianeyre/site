@@ -5,13 +5,19 @@
 
         <div class="question-box">
           <div *ngIf="!resultsPage" class="side" [ngClass]="((form.controls[item.key].valid) && (form.controls[item.key].dirty || form.controls[item.key].touched)) ? 'answer' : 'no-answer'">{{ question + 1 }}</div>
-          <div *ngIf="resultsPage" class="side" [ngClass]="resultValidation(item, form) ? 'correct-answer' : 'wrong-answer'">{{ question + 1 }}</div>                    
-          <div class="main">
+          <div *ngIf="resultsPage" class="side" [ngClass]="item.correct ? 'correct-answer' : 'wrong-answer'">{{ question + 1 }}</div>
+          <div class="min-max-button" *ngIf="resultsPage">
+            <a (click)="changeState(item)">
+              <i *ngIf="item.minimize" class="material-icons md-48">arrow_drop_up</i>
+              <i *ngIf="!item.minimize" class="material-icons md-48">arrow_drop_down</i>
+            </a>
+          </div>                
+          <div class="main" *ngIf="item.minimize">
             <div class="question-container" [innerHtml]='item.question.text | translate'></div>
 
             <div *ngFor="let element of elements" [ngClass]="elements.length > 1 ? 'col-md-6' : ''">
-              <div *ngIf="element === 'result'">Correct Answer</div>
-              <div *ngIf="element === 'answer'">Your Answer</div>
+              <div *ngIf="element === 'result'" translate="quiz.results.correct"></div>
+              <div *ngIf="element === 'answer' && resultPage" translate="quiz.results.answer"></div>
               <div class="input-area">
                 <div *ngIf="item.type === 'text'">
                   <input

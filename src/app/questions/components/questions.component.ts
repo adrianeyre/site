@@ -10,7 +10,7 @@ export interface QuestionsComponent {
 @Component({
   selector: 'questions',
   templateUrl: '../views/questions.component.html',
-  styleUrls: ['../styles/questions.component.less']
+  styleUrls: ['../styles/questions.component.less', '../../core/styles/core.component.less']
 })
 export class QuestionsComponent implements OnInit {
   @Input() dataFields: any;
@@ -71,12 +71,9 @@ export class QuestionsComponent implements OnInit {
           );
         }
       })
-      // console.log(this);
+      element.correct = this.resultsPage ? this.resultValidation(element, this.form) : false;
+      element.minimize = !_.clone(element.correct);
     })
-  }
-
-  selectElement(type, element) {
-    return type === 'result' ? `answer-${element.key}` : element.key
   }
 
   resultValidation(item, form) {
@@ -97,8 +94,10 @@ export class QuestionsComponent implements OnInit {
     return _.isEqual(correctResult, answeredResult);
   }
 
-  submit(form) {
-    this.update.emit(form)
-  }
+  selectElement = (type, element) => type === 'result' ? `answer-${element.key}` : element.key;
+
+  changeState = element => element.minimize = !element.minimize;
+
+  submit = form => this.update.emit(form);
 
 }

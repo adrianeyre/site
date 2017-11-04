@@ -1,0 +1,3 @@
+<div *ngIf="loaded">
+    <questions [dataFields]="quizFields" (update)="onSubmit($event)"></questions>
+</div>

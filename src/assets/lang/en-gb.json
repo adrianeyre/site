@@ -45,6 +45,10 @@
         "modal": {
             "title": "This is a test",
             "body": "This is some text in the modal"
+        },
+        "results": {
+            "correct": "Correct Answer",
+            "answer": "Your Answer"
         }
     },
 
