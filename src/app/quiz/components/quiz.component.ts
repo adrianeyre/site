@@ -3,7 +3,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { ModalComponent } from '../../core/components/modal.component';
 import { DialogService } from "ng2-bootstrap-modal";
 import { AuthService } from '../../core/services/auth.service';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+// import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 import * as _ from "lodash";
 
@@ -121,7 +121,7 @@ export class QuizComponent {
   constructor(
     private dialogService: DialogService,
     private auth: AuthService,
-    private spinnerService: Ng4LoadingSpinnerService,
+    // private spinnerService: Ng4LoadingSpinnerService,
   ) {}
 
   ngOnInit() {
@@ -139,10 +139,10 @@ export class QuizComponent {
       })
 
       this.loaded = true;
-      this.spinnerService.hide();
+      // this.spinnerService.hide();
     }
 
-    this.spinnerService.show();
+    // this.spinnerService.show();
     this.auth.get('quiz')
     .then((data) => {
       if (data.json().status === 'success') {

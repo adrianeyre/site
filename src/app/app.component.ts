@@ -11,15 +11,15 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class AppComponent {
   constructor(
-    // private stateChange: StateChange,
-    // private config: Config,
-    // private translate: TranslateService,
+    private stateChange: StateChange,
+    private config: Config,
+    private translate: TranslateService,
   ) {
-    // translate.setDefaultLang('en-gb');
+    translate.setDefaultLang('en-gb');
   }
 
-  // switchLanguage(language: string) {
-  //   this.translate.use(language);
-  // }
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
 
 }
