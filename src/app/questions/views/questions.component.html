@@ -4,7 +4,7 @@
       <div class="{{ item.className }}">
 
         <div class="question-box">
-          <div *ngIf="!resultsPage" class="side" [ngClass]="((form.controls[item.key].valid) && (form.controls[item.key].dirty || form.controls[item.key].touched)) ? 'answer' : 'no-answer'">{{ question + 1 }}</div>
+          <div *ngIf="!resultsPage" class="side" [ngClass]="checkIdValid(item, form) ? 'answer' : 'no-answer'">{{ question + 1 }}</div>
           <div *ngIf="resultsPage" class="side" [ngClass]="item.correct ? 'correct-answer' : 'wrong-answer'">{{ question + 1 }}</div>
           <div class="min-max-button" *ngIf="resultsPage">
             <a (click)="changeState(item)">

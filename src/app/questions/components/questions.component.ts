@@ -64,8 +64,8 @@ export class QuestionsComponent implements OnInit {
               Validators.required,
               Validators.min(_.get(element, 'options.min', null)),
               Validators.max(_.get(element, 'options.max', null)),
-              Validators.minLength(_.get(element, 'options.minLength', null)),
-              Validators.maxLength(_.get(element, 'options.maxLength', null)),
+              Validators.minLength(_.get(element, 'options.minLength', 1)),
+              Validators.maxLength(_.get(element, 'options.maxLength', 255)),
               Validators.pattern(_.get(element, 'options.pattern', null)),
             ])
           );
@@ -92,6 +92,19 @@ export class QuestionsComponent implements OnInit {
     })
 
     return _.isEqual(correctResult, answeredResult);
+  }
+
+  checkIdValid(item, form) {
+    if (item.type !== 'checkbox') {
+      return form.controls[this.selectElement('answer', item)].valid;
+    }
+
+    const correctAnswers = _.filter(form.controls[this.selectElement('answer', item)].controls, element => element.value).length;
+    const amountOfElements = _.filter(form.controls[this.selectElement('answer', item)].controls).length;
+    const minValue = _.get(item, 'options.min', 1);
+    const maxValue = _.get(item, 'options.max', amountOfElements);
+
+    return correctAnswers >= minValue && correctAnswers <= maxValue;
   }
 
   selectElement = (type, element) => type === 'result' ? `answer-${element.key}` : element.key;

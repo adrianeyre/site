@@ -71,9 +71,7 @@ export class QuizComponent {
             text: 'Option 3',
           },
         ],
-        options: {
-          maxLength: 30,
-        },
+        options: {},
       },
       {
         key: 'question4',
@@ -81,7 +79,7 @@ export class QuizComponent {
         type: 'checkbox',
         question: {
           id: 4,
-          text: 'Pick an option 1 or 2 or 3',
+          text: 'Pick an option 2 options',
         },
         answers: [
           {
@@ -97,7 +95,10 @@ export class QuizComponent {
             text: 'Option 6',
           },
         ],
-        options: {},
+        options: {
+          min: 2,
+          max: 2,
+        },
       },
       {
         key: 'question5',
@@ -110,8 +111,6 @@ export class QuizComponent {
         options: {
             rows: '10',
             cols: '50',
-            minLength: 1,
-            maxLength: 30,
             placeholder: 'Enter some text'
         },
       }

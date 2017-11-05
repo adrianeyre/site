@@ -95,7 +95,7 @@ export class ResultsComponent {
         type: 'checkbox',
         question: {
           id: 4,
-          text: 'Pick an option 1 or 2 or 3',
+          text: 'Pick 2 options',
         },
         answers: [
           {
@@ -168,8 +168,8 @@ export class ResultsComponent {
     });
   }
 
-  onSubmit(answers) {
-    console.log(answers);
+  onSubmit(form) {
+    console.log(form);
   }
 
   showModal() {
