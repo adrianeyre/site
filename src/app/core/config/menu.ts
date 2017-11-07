@@ -36,12 +36,16 @@ export class Menu {
     ],
     quiz: [
       {
-        href: '/quiz',
-        key: 'quiz',
+        href: '/quiz/take',
+        key: 'take',
       },
       {
-        href: '/results',
+        href: '/quiz/results',
         key: 'results',
+      },
+      {
+        href: '/quiz/make',
+        key: 'make',
       }
     ],
     admin: [

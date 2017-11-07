@@ -18,7 +18,9 @@ import { StatusComponent } from './core/components/status.component';
 import { LogoutComponent } from './core/components/logout.component';
 import { MainMenuComponent } from './main-menu/components/main-menu.component';
 import { QuizComponent } from './quiz/components/quiz.component';
+import { TakeQuizComponent } from './quiz/components/take.component';
 import { ResultsComponent } from './quiz/components/results.component';
+import { MakeQuizComponent } from './quiz/components/make.component';
 import { QuestionsComponent } from './questions/components/questions.component';
 import { HomeComponent } from './core/components/home.component';
 import { AppComponent } from './app.component';
@@ -45,7 +47,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LogoutComponent,
     MainMenuComponent,
     QuizComponent,
+    TakeQuizComponent,
     ResultsComponent,
+    MakeQuizComponent,
     ModalComponent,
     FormModalComponent,
     QuestionsComponent,
@@ -78,8 +82,16 @@ export function HttpLoaderFactory(http: HttpClient) {
         component: QuizComponent,
       },
       {
-        path: 'results',
+        path: 'quiz/take',
+        component: TakeQuizComponent,
+      },
+      {
+        path: 'quiz/results',
         component: ResultsComponent,
+      },
+      {
+        path: 'quiz/make',
+        component: MakeQuizComponent,
       },
       {
         path: 'login',

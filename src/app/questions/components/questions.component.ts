@@ -19,6 +19,7 @@ export class QuestionsComponent implements OnInit {
   form = new FormGroup({});
   resultsPage: boolean;
   elements = [];
+  selectedItems = [];
 
   constructor(
     private fb: FormBuilder
@@ -27,6 +28,7 @@ export class QuestionsComponent implements OnInit {
   ngOnInit() {
     const elementValue = (element, index, type) => {
       const cloneArray = type === 'answer' ? _.clone(_.get(element, 'results.answered', '')) : _.clone(element.results.correct)
+      let result = {};
       switch (element.type) {
         case 'text':
         case 'number':
@@ -35,10 +37,21 @@ export class QuestionsComponent implements OnInit {
         case 'textarea':
         case 'radio':
           return cloneArray;
+        case 'select':
+          _.set(element, 'options.from', []);
+          _.set(element, 'options.to', []);
+          _.forEach(this.dataFields.lookups[element.key], el => {
+            const data = _.clone(el);
+            data.enabled = true;
+            result[el.id] = false;
+            element.options.from.push(_.clone(data));
+            data.enabled = false;
+            element.options.to.push(_.clone(data));
+          });
+          return result;
         case 'checkbox':
-          let result = {};
           _.forEach(element.answers, el => {
-            result[el.id] = _.get(cloneArray, [el.id], false);
+            result[el.toString()] = _.get(cloneArray, [el.id], false);
           });
           return result;
       }
@@ -50,13 +63,17 @@ export class QuestionsComponent implements OnInit {
 
     this.dataFields.fields.forEach((element, index) => {
       _.forEach(this.elements, type => {
-        const elementName = type == 'answer' ? element.key : `answer-${element.key}`;
+        const elementName = this.selectElement(type, element);
 
         if (element.type === 'checkbox') {
           this.form.controls[elementName] = this.fb.group(elementValue(element, index, type));
         }
 
-        if (element.type !== 'checkbox') {
+        if (element.type === 'select') {
+          this.form.controls[elementName] = this.fb.group(elementValue(element, index, type));
+        }
+
+        if (element.type !== 'checkbox' && element.type !== 'select') {
           const value = _.get(element, 'results.answered') ? elementValue(element, index, type) : ''
 
           this.form.controls[elementName] = new FormControl({value, disabled: this.resultsPage},
@@ -73,6 +90,11 @@ export class QuestionsComponent implements OnInit {
       })
       element.correct = this.resultsPage ? this.resultValidation(element, this.form) : false;
       element.minimize = !_.clone(element.correct);
+    })
+    this.dataFields.fields.forEach(element => {
+      if (_.get(element, 'options.relationship')) {
+        this.checkRelationship(element)
+      }
     })
   }
 
@@ -95,6 +117,10 @@ export class QuestionsComponent implements OnInit {
   }
 
   checkIdValid(item, form) {
+    if (item.type === 'select') {
+      return _.filter(item.options.to, e => e.enabled).length > 0;
+    }
+
     if (item.type !== 'checkbox') {
       return form.controls[this.selectElement('answer', item)].valid;
     }
@@ -105,6 +131,58 @@ export class QuestionsComponent implements OnInit {
     const maxValue = _.get(item, 'options.max', amountOfElements);
 
     return correctAnswers >= minValue && correctAnswers <= maxValue;
+  }
+
+  moveItem(item, direction = null) {
+    if (direction !== null) {
+      this.selectedItems = [];
+      if (direction) {
+      _.forEach(item.options.from, (e, index) => {
+        if ((!e.enabled && !direction) || (e.enabled && direction)) {
+          e.enabled = !direction;
+          item.options.to[index].enabled = direction;
+          this.form.controls[item.key].value[e.id] = direction;
+        }
+      });
+      } else {
+        _.forEach(item.options.to, (e, index) => {
+          if ((e.enabled && !direction) || (!e.enabled && direction)) {
+            e.enabled = direction;
+            item.options.from[index].enabled = !direction;
+            this.form.controls[item.key].value[e.id] = direction;
+          }
+        });
+      }
+    }
+    _.forEach(this.selectedItems, e => {
+      _.find(item.options.from, el => el.id === e.value).enabled = !_.find(item.options.from, el => el.id === e.value).enabled;
+      _.find(item.options.to, el => el.id === e.value).enabled = !_.find(item.options.to, el => el.id === e.value).enabled;
+      this.form.controls[item.key].value[e.value] = !this.form.controls[item.key].value[e.value];
+    });
+
+    if (_.get(item, 'options.relationship')) {
+      this.checkRelationship(item)
+    }
+  }
+
+  checkRelationship(item) {
+    const filter = [];
+    _.filter(this.form.controls[item.key].value, (value, id) => {
+      if (value) {
+        filter.push(id)
+      }
+    });
+  
+    const relationshipItem = _.find(this.dataFields.fields, field => field.key === item.options.relationship);
+    _.forEach(relationshipItem.options.from, (i, key) => {
+      i.enabled = _.intersection(filter, i[item.key]).length > 0;
+      relationshipItem.options.to[key].enabled = false;
+      this.form.controls[relationshipItem.key].value[i.id] = false;
+    })
+  }
+
+  selectUpdate(element) {
+    this.selectedItems = _.filter(element, i => i.selected);
   }
 
   selectElement = (type, element) => type === 'result' ? `answer-${element.key}` : element.key;

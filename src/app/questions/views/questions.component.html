@@ -105,6 +105,41 @@
                 >
                 </textarea>
               </p>
+
+              <div *ngIf="item.type === 'select'">
+                <div class="col-md-5">
+                  <select
+                    (change)="selectUpdate($event.target.options)"
+                    name="{{ selectElement('result', item) }}"
+                    id="{{ selectElement('result', item) }}"
+                    size="10"
+                    width="500"
+                    multiple
+                    style="width: 100%;"
+                  >
+                    <option *ngFor="let answer of item.options.from; let i = index" [hidden]="!answer.enabled" [value]="answer.id">{{ answer.text }}</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <div class="question-button"><button type="button" (click)="moveItem(item)" class="btn btn-default">MOVE >></button></div>
+                  <div class="question-button"><button type="button" (click)="moveItem(item, true)" class="btn btn-default">MOVE ALL >></button></div>
+                  <div class="question-button"><button type="button" (click)="moveItem(item)" class="btn btn-default"><< MOVE</button></div>
+                  <div class="question-button"><button type="button" (click)="moveItem(item, false)" class="btn btn-default"><< MOVE ALL</button></div>
+                </div>
+                <div class="col-md-5">
+                    <select
+                      (change)="selectUpdate($event.target.options)"
+                      name="{{ selectElement(element, item) }}"
+                      id="{{ selectElement(element, item) }}"
+                      size="10"
+                      width="500"
+                      multiple
+                      style="width: 100%;"
+                    >
+                      <option *ngFor="let answer of item.options.to; let i = index" [hidden]="!answer.enabled" [value]="answer.id">{{ answer.text }}</option>
+                    </select>
+                </div>
+              </div>
             </div>
 
             <div class="explanation" *ngIf="resultsPage && item.results.explanation && item.minimize" [innerHtml]='item.results.explanation | translate'></div>

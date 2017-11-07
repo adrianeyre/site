@@ -35,8 +35,9 @@
         "sideNav": {
             "login": "Login",
             "logout": "Logout",
-            "quiz": "Quiz",
-            "results": "Results"
+            "take": "Take Quiz",
+            "results": "Results",
+            "make": "Make Quiz"
         }
     },
 
