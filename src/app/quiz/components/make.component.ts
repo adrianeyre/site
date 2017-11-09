@@ -24,7 +24,7 @@ export class MakeQuizComponent {
     fields: [
       {
         key: 'title',
-        className: 'col-md-6',
+        className: 'col-md-12',
         type: 'text',
         question: {
           id: 1,
@@ -34,6 +34,26 @@ export class MakeQuizComponent {
           minLength: 1,
           maxLength: 30,
         },
+      },
+      {
+        key: 'startDate',
+        className: 'col-md-6',
+        type: 'date',
+        question: {
+          id: 1,
+          text: 'Start date',
+        },
+        options: {},
+      },
+      {
+        key: 'endDate',
+        className: 'col-md-6',
+        type: 'date',
+        question: {
+          id: 1,
+          text: 'Start date',
+        },
+        options: {},
       },
       {
         key: 'class',
