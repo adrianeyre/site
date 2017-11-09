@@ -51,7 +51,8 @@ export class QuestionsComponent implements OnInit {
           return result;
         case 'checkbox':
           _.forEach(element.answers, el => {
-            result[el.toString()] = _.get(cloneArray, [el.id], false);
+            const data = type === 'answer' ? _.clone(_.get(_.get(element, 'results.answered'), [el.id], false)) : _.clone(_.get(_.get(element, 'results.correct'), [el.id], false))
+            result[el.id] = data;        
           });
           return result;
       }
@@ -62,6 +63,7 @@ export class QuestionsComponent implements OnInit {
     this.elements = this.resultsPage ? ['result','answer'] : ['answer'];
 
     this.dataFields.fields.forEach((element, index) => {
+      element.key = _.get(element, 'key') ? element.key : `item${ index }`;
       _.forEach(this.elements, type => {
         const elementName = this.selectElement(type, element);
 
