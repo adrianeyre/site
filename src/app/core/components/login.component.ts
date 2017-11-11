@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user';
-import { Config } from '../../core/config/config';
 import { FormModalComponent } from '../../core/components/form.modal.component';
 import { DialogService } from "ng2-bootstrap-modal";
 
@@ -20,7 +19,6 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private config: Config,
     private dialogService: DialogService,
   ) {}
 
