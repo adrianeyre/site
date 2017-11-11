@@ -135,32 +135,30 @@ export class QuestionsComponent implements OnInit {
     return correctAnswers >= minValue && correctAnswers <= maxValue;
   }
 
-  moveItem(item, direction = null) {
-    if (direction !== null) {
+  moveItem(item, direction, moveAll = false) {
+    if (moveAll) {
+      // Move all items
       this.selectedItems = [];
-      if (direction) {
-      _.forEach(item.options.from, (e, index) => {
-        if ((!e.enabled && !direction) || (e.enabled && direction)) {
-          e.enabled = !direction;
-          item.options.to[index].enabled = direction;
-          this.form.controls[item.key].value[e.id] = direction;
+      const fromItems = direction ? item.options.from : item.options.to;
+      const toItems = direction ? item.options.to : item.options.from;
+
+      _.forEach(fromItems, (selectedItem, index) => {
+        if (selectedItem.enabled) {
+          selectedItem.enabled = false;
+          toItems[index].enabled = true;
+          this.form.controls[item.key].value[selectedItem.id] = direction;
         }
       });
-      } else {
-        _.forEach(item.options.to, (e, index) => {
-          if ((e.enabled && !direction) || (!e.enabled && direction)) {
-            e.enabled = direction;
-            item.options.from[index].enabled = !direction;
-            this.form.controls[item.key].value[e.id] = direction;
-          }
-        });
-      }
     }
-    _.forEach(this.selectedItems, e => {
-      _.find(item.options.from, el => el.id === e.value).enabled = !_.find(item.options.from, el => el.id === e.value).enabled;
-      _.find(item.options.to, el => el.id === e.value).enabled = !_.find(item.options.to, el => el.id === e.value).enabled;
-      this.form.controls[item.key].value[e.value] = !this.form.controls[item.key].value[e.value];
-    });
+
+    if (!moveAll) {
+      // Move individual items
+      _.forEach(this.selectedItems, selectedItem => {
+        _.find(item.options.from, el => el.id === selectedItem.value).enabled = !direction;
+        _.find(item.options.to, el => el.id === selectedItem.value).enabled = direction;
+        this.form.controls[item.key].value[selectedItem.value] = direction;
+      });
+    }
 
     if (_.get(item, 'options.relationship')) {
       this.checkRelationship(item)
