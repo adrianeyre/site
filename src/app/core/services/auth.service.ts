@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AuthService {
 
-  private BASE_URL: string = 'http://cshomeworkapi.azurewebsites.net/api';
+  private BASE_URL: string = 'https://cshomeworkapi.azurewebsites.net/api';
 
   createHeader = () => {
     return new Headers({
