@@ -6,28 +6,37 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class AuthService {
 
-  private BASE_URL: string = 'http://localhost:5000/auth';
-  private headers: Headers = new Headers({'Content-Type': 'application/json'});
+  private BASE_URL: string = 'http://cshomeworkapi.azurewebsites.net/api';
+
+  createHeader = () => {
+    return new Headers({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, accept',
+    });
+  }
 
   constructor(
     private http: Http) {}
 
   login(user: User): Promise<any> {
     const url: string = `${ this.BASE_URL }/login`;
-    return this.http.post(url, user, {headers: this.headers}).toPromise();
+    const headers = this.createHeader();
+
+    return this.http.post(url, user, {headers: headers}).toPromise();
   }
 
   register(user: User): Promise<any> {
     const url: string = `${ this.BASE_URL }/register`;
-    return this.http.post(url, user, {headers: this.headers}).toPromise();
+    const headers = this.createHeader();
+
+    return this.http.post(url, user, {headers: headers}).toPromise();
   }
 
   ensureAuthenticated(token): Promise<any> {
     const url: string = `${ this.BASE_URL }/status`;
-    const headers: Headers = new Headers({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${ token }`
-    });
+    const headers = this.createHeader();
 
     return this.http.get(url, {headers: headers}).toPromise();
   }
@@ -35,10 +44,8 @@ export class AuthService {
   get(route: string): Promise<any> {
     const token = localStorage.getItem('token');
     const url: string = `${ this.BASE_URL }/${ route }`;
-    const headers: Headers = new Headers({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${ token }`
-    });
+    const headers = this.createHeader();
+    headers.append('Authorization', `Bearer ${ token }`);
 
     return this.http.get(url, {headers: headers}).toPromise();
   }
@@ -46,11 +53,10 @@ export class AuthService {
   post(route: string, data: any): Promise<any> {
     const token = localStorage.getItem('token');
     const url: string = `${ this.BASE_URL }/${ route }`;
-    const headers: Headers = new Headers({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${ token }`
-    });
-    return this.http.post(url, data, {headers: this.headers}).toPromise();
+    const headers = this.createHeader();
+    headers.append('Authorization', `Bearer ${ token }`);
+
+    return this.http.post(url, data, {headers: headers}).toPromise();
   }
 
 }

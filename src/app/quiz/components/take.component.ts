@@ -142,7 +142,7 @@ export class TakeQuizComponent {
     }
 
     // this.spinnerService.show();
-    this.auth.get('take')
+    this.auth.get('questions')
     .then((data) => {
       if (data.json().status === 'success') {
         dataSetup(data.json().data)
