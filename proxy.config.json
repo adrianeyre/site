@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "http://cshomeworkapi.azurewebsites.net",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
