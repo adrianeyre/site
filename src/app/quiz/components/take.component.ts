@@ -28,7 +28,7 @@ export class TakeQuizComponent {
         type: 'number',
         question: {
           id: 1,
-          text: 'Enter a number between 1 and 10',
+          label: 'Enter a number between 1 and 10',
         },
         options: {
           min: 1,
@@ -41,7 +41,7 @@ export class TakeQuizComponent {
         type: 'text',
         question: {
           id: 2,
-          text: 'Enter a 5 to 10 characters',
+          label: 'Enter a 5 to 10 characters',
         },
         options: {
           placeholder: 'text',
@@ -55,20 +55,20 @@ export class TakeQuizComponent {
         type: 'radio',
         question: {
           id: 3,
-          text: 'Pick an option 1-3',
+          label: 'Pick an option 1-3',
         },
         answers: [
           {
             id: 1,
-            text: 'Option 1',
+            label: 'Option 1',
           },
           {
             id: 2,
-            text: 'Option 2',
+            label: 'Option 2',
           },
           {
             id: 3,
-            text: 'Option 3',
+            label: 'Option 3',
           },
         ],
         options: {},
@@ -79,20 +79,20 @@ export class TakeQuizComponent {
         type: 'checkbox',
         question: {
           id: 4,
-          text: 'Pick an option 2 options',
+          label: 'Pick an option 2 options',
         },
         answers: [
           {
             id: 4,
-            text: 'Option 4',
+            label: 'Option 4',
           },
           {
             id: 5,
-            text: 'Option 5',
+            label: 'Option 5',
           },
           {
             id: 6,
-            text: 'Option 6',
+            label: 'Option 6',
           },
         ],
         options: {
@@ -106,7 +106,7 @@ export class TakeQuizComponent {
         type: 'textarea',
         question: {
           id: 10,
-          text: 'This is question one with some HTML link in. Click here for <a href="http://www.bbc.co.uk" target="_blank">BBC</a>',
+          label: 'This is question one with some HTML link in. Click here for <a href="http://www.bbc.co.uk" target="_blank">BBC</a>',
         },
         options: {
             rows: '10',

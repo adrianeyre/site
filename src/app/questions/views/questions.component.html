@@ -13,7 +13,7 @@
             </a>
           </div>                
           <div class="main" *ngIf="item.minimize">
-            <div class="question-container" [innerHtml]='item.question.text | translate'></div>
+            <div class="question-container" [innerHtml]='item.question.label | translate'></div>
 
             <div *ngFor="let element of elements" [ngClass]="elements.length > 1 ? 'col-md-6' : ''">
               <div *ngIf="element === 'result'" translate="quiz.results.correct"></div>
@@ -72,7 +72,7 @@
                       value="{{ answer.id }}"
                       formControlName="{{ selectElement(element, item) }}"
                     >
-                    {{ answer.text }}
+                    {{ answer.label }}
                   </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@
                       value="{{ answer.id }}"
                       formControlName="{{ answer.id }}"
                     >
-                    {{ answer.text }}
+                    {{ answer.label }}
                   </div>
                 </fieldset>
               </div>
@@ -128,7 +128,7 @@
                     multiple
                     style="width: 100%;"
                   >
-                    <option *ngFor="let answer of item.options.from; let i = index" [hidden]="!answer.enabled" [value]="answer.id">{{ answer.text }}</option>
+                    <option *ngFor="let answer of item.options.from; let i = index" [hidden]="!answer.enabled" [value]="answer.id">{{ answer.label }}</option>
                   </select>
                 </div>
                 <div class="col-md-2">
@@ -147,7 +147,7 @@
                       multiple
                       style="width: 100%;"
                     >
-                      <option *ngFor="let answer of item.options.to; let i = index" [hidden]="!answer.enabled" [value]="answer.id">{{ answer.text }}</option>
+                      <option *ngFor="let answer of item.options.to; let i = index" [hidden]="!answer.enabled" [value]="answer.id">{{ answer.label }}</option>
                     </select>
                 </div>
               </div>
