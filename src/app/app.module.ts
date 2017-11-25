@@ -33,6 +33,7 @@ import { StateChange } from './core/services/stateChange.service';
 import { Config } from './core/config/config';
 import { Forms } from './core/config/forms';
 import { Menu } from './core/config/menu';
+import { UploadComponent } from './upload/upload.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/lang/', '.json');
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormModalComponent,
     QuestionsComponent,
     HomeComponent,
+    UploadComponent,
   ],
   imports: [
     CommonModule,
@@ -111,6 +113,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       {
         path: 'logout',
         component: LogoutComponent
+      },
+      {
+        path: 'upload',
+        component: UploadComponent
       }
     ])
   ],
